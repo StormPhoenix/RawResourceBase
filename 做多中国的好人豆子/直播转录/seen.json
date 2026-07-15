@@ -36,7 +36,7 @@
     "transcribed": false,
     "transcribed_at": null,
     "txt_file": null,
-    "asr_job_id": "asr_5f9c4f70"
+    "asr_job_id": "asr_1bbee030"
   },
   "BV1mXNr61Ef2": {
     "title": "那秦英林应该也更喜欢年轻一些的吧",
@@ -154,5 +154,18 @@
     "transcribed_at": "2026-07-15T16:22:46+08:00",
     "txt_file": "26_07_15-11-56-47_猪猪猪猪猪猪猪猪猪猪_BV1qwNi6LE4Q.txt",
     "asr_job_id": "asr_4d8a98da"
+  },
+  "BV1myNq6vEyx": {
+    "title": "猪猪猪猪猪猪猪猪猪猪猪 （下午份的盯盘+盘后经验分享） 20260715 弹幕 字幕",
+    "timestamp": 1784107291,
+    "upload_time": "26_07_15-17-21-31",
+    "filename_base": "26_07_15-17-21-31_猪猪猪猪猪猪猪猪猪猪_BV1myNq6vEyx",
+    "video_file": "26_07_15-17-21-31_猪猪猪猪猪猪猪猪猪猪_BV1myNq6vEyx.mp4",
+    "downloaded": true,
+    "downloaded_at": "2026-07-16T03:35:37+08:00",
+    "transcribed": true,
+    "transcribed_at": "2026-07-16T04:09:49+08:00",
+    "txt_file": "26_07_15-17-21-31_猪猪猪猪猪猪猪猪猪猪_BV1myNq6vEyx.txt",
+    "asr_job_id": "asr_23ae9a2d"
   }
 }
