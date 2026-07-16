@@ -1,1 +1,31 @@
-{}
+{
+  "entries": {
+    "stock-data": {
+      "enabled": false
+    },
+    "skill-creator": {
+      "enabled": false
+    },
+    "rsa-crypto": {
+      "enabled": false
+    },
+    "repo-knowledge-base": {
+      "enabled": false
+    },
+    "pptx-tools": {
+      "autoInject": false
+    },
+    "desktop-action": {
+      "autoInject": false
+    },
+    "text-transform": {
+      "autoInject": false
+    },
+    "playwriter-browser": {
+      "autoInject": true
+    },
+    "safe-desktop": {
+      "autoInject": false
+    }
+  }
+}
