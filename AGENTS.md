@@ -24,6 +24,7 @@
 | `无名游资/转录AI总结/` | 对应转录文稿的 AI 结构化总结 | `.md` | **可创建/编辑**——按方法论生成 |
 | `做多中国的好人豆子/直播转录/` | UP 主「做多中国的好人豆子」B 站直播 ASR 原始转录 | `.txt` | **只读**——作为输入 |
 | `做多中国的好人豆子/转录AI总结/` | 对应转录文稿的 AI 结构化总结 | `.md` | **可创建/编辑**——按方法论生成 |
+| `做多中国的好人豆子/直播切片总结/` | 直播切片的 AI 结构化总结 | `.md` | **可创建/编辑**——按方法论生成 |
 | `访谈/` | 深度访谈转录（如 AI 领域人物访谈） | `.md` | **只读**——参考阅读 |
 | `交易/` | 交易理念与方法论文章、外部转载文章（知乎/雪球等） | `.md` | **可创建/编辑**——外部文章归档 |
 | `行中衡/文章/` | 博主「行中衡」的雪球专栏文章（224 篇，2017-2026） | `.md` | **只读**——参考阅读 |
@@ -80,19 +81,73 @@ YY_MM_DD-HH-MM-SS_标题截断_BVID.txt
 
 对应的 AI 总结文件名完全相同，仅扩展名为 `.md`。
 
-### Frontmatter 模板
+### Frontmatter 规范（统一 YAML 格式）
 
-每篇 AI 总结必须包含以下 Frontmatter：
+本仓库所有 Markdown 文件统一使用 YAML Frontmatter，分为通用字段和转录专用字段两部分。
+
+**模板：**
 
 ```yaml
 ---
-source_video: BV1xxx           # B 站视频 BVID
-source_title: 原始标题
-upload_time: YYYY-MM-DD HH:MM:SS
-duration_estimate: ~N 分钟/小时  # 根据文本量估算
-generated_at: YYYY-MM-DD        # 生成日期
-has_finance_content: true/false # 是否包含金融内容
+# ── 通用字段（所有文件必填）──
+title: 文章标题                    # 文章/视频标题
+source_type: article              # article=外部转载 | transcript=直播转录
+source_platform: 雪球              # 来源平台（雪球/知乎/B站/...）
+source_url: https://xueqiu.com/...  # 原文链接
+author: 行中衡                    # 作者/UP主
+publish_date: 2024-08-04          # 发布日期（YYYY-MM-DD）
+
+# ── 直播转录专用（仅 source_type=transcript 时填写）──
+source_video: BV1xxx              # B 站视频 BVID
+duration_estimate: ~N 分钟/小时    # 根据文本量估算
+generated_at: YYYY-MM-DD          # AI 总结生成日期
+has_finance_content: true/false   # 是否包含金融内容
 ---
+```
+
+**使用规则：**
+
+- 外部转载文章（`source_type: article`）：只填通用字段，转录专用字段省略
+- 直播转录总结（`source_type: transcript`）：填满全部字段
+- `publish_date` 为内容原始发布日期；`generated_at` 为 AI 总结生成日期（仅转录类需要）
+- Frontmatter 之后紧跟正文，正文以一级标题 `# 文章标题` 开头（标题保留到正文，便于 Obsidian 大纲与搜索）
+
+**示例——外部转载文章：**
+
+```yaml
+---
+title: 优势投资
+source_type: article
+source_platform: 雪球
+source_url: https://xueqiu.com/1553799558/299829399
+author: 行中衡
+publish_date: 2024-08-04
+---
+
+# 优势投资
+
+（正文原样保留……）
+```
+
+**示例——直播转录 AI 总结：**
+
+```yaml
+---
+title: 豆区对有色的看法（直播回溯）
+source_type: transcript
+source_platform: B站
+source_url: https://www.bilibili.com/video/BV16SML6YEAA
+author: 做多中国的好人豆子
+publish_date: 2026-07-09
+source_video: BV16SML6YEAA
+duration_estimate: ~5 分钟
+generated_at: 2026-07-23
+has_finance_content: true
+---
+
+# 豆区对有色的看法（直播回溯）
+
+（正文……）
 ```
 
 ---
@@ -109,23 +164,11 @@ has_finance_content: true/false # 是否包含金融内容
 
 ### 外部文章归档规范
 
-- 保存外部文章（知乎等）为 Markdown 时，使用以下 frontmatter 格式（**非 YAML**，为兼容 Obsidian 标题与引用块）：
-
-  ```
-  # 文章标题
-  > 来源：xxx
-  > 作者：xxx
-  > 链接：xxx
-  ---
-  （正文）
-  ```
-
+- 保存外部文章（知乎、雪球等）为 Markdown 时，使用统一 YAML Frontmatter（见上节模板），`source_type` 设为 `article`，转录专用字段省略。
+- YAML Frontmatter 之后，正文以一级标题开头，保留原文章标题：`# 文章标题`
 - 外部文章文件命名使用日期前缀格式：`YYYY-MM-DD_文章标题.md`（日期为文章原始发布时间）。
   例如：`2024-08-04_优势投资.md`
-
-  注意：直播转录 AI 总结使用 YAML Frontmatter（见上节模板）；外部转载文章使用本节的引用块格式，二者不要混淆。
-
-- **原文保真**：从外部网页（知乎、雪球等）下载文章到本地时，必须**一字不改**地保留原文内容，不得删减、改写、摘要或重新排版。仅在开头添加 frontmatter（标题/来源/作者/链接 + 分隔线），正文部分原样输出。
+- **原文保真**：从外部网页（知乎、雪球等）下载文章到本地时，必须**一字不改**地保留原文内容，不得删减、改写、摘要或重新排版。仅在开头添加 YAML Frontmatter，正文部分原样输出。
 
 ### 图片与附件规范
 
